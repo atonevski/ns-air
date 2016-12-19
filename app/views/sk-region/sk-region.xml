@@ -1,0 +1,3 @@
+<Page loaded='pageLoaded'>
+  <Label text='This is our JSON view' />
+</Page>
