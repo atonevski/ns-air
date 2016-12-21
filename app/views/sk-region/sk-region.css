@@ -1,0 +1,6 @@
+.good { color: green; }
+.moderate { color: limegreen; }
+.sensitive { color: yellow; }    
+.unhealthy { color: orange; }
+.very-unhealthy { color: red; }
+.hazardous { color: crimson; }
