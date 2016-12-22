@@ -1,21 +1,24 @@
-MAKE_GRAPH_PATH = "http://airquality.moepp.gov.mk/graphs/site/pages/MakeGraph.php"
+Observable = require("data/observable").Observable
+utils = require '../../common/utils'
 
-exports.pageLoaded = () ->
-  console.log "Here we'll load JSON data"
-  http = require 'http'
-  url = MAKE_GRAPH_PATH +
-      "?graph=StationLineGraph&station=SkopjeRegion" +
-      "&parameter=PM10&endDate=#{ (new Date()).toISOString()[0..9] }" +
-      "&timeMode=Day" +
-      "&background=false" +
-      "&i=#{ Date.now() }&language=mk"
+createViewModel = () ->
+  viewModel = new Observable()
+  viewModel.measurements = []
+  viewModel.getMeasurements = (res) ->
+    console.log 'Got measurements'
+    @set 'measurements', res.marr
+    @set 'parameter', res.parameter
+    @set 'stations', res.stations
 
-  http.getJSON(url)
+  utils.getMeasurements { station: 'SkopjeRegion' }
     .then (res) ->
-      console.log 'Loading JSON successful'
+      console.log 'Finally getting measurements'
       console.log JSON.stringify(res)
-      null
-    , (err) ->
-      console.log "Error loadind JSON: #{ err }"
-      null
-  null
+      viewModel.getMeasurements res
+      console.log 'Here are the measurements: ', JSON.stringify(res)
+  viewModel
+
+exports.pageLoaded = (args) ->
+  page = args.object
+  console.log "Here we'll load JSON data"
+  page.bindingContext = createViewModel()

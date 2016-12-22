@@ -39,7 +39,7 @@ exports.getMeasurements = (params) ->
     parameter:      'PM10'
     timeMode:       'Day'
     date:           (new Date()).toISOString()[0..9]
-    drawBackgroud:  false
+    drawBackground: false
     time:           Date.now()
     language:       'mk'
 
@@ -47,25 +47,29 @@ exports.getMeasurements = (params) ->
   for k, v of params
     defs[k] = v
 
+  console.log "Params: ", JSON.stringify(defs)
+
   url = constants.MAKE_GRAPH_PATH +
         "?graph=StationLineGraph&station=#{ defs.station }" +
         "&parameter=#{ defs.parameter }&endDate=#{ defs.date }" +
-        "&timeMode=#{ defs.time_mode }" +
+        "&timeMode=#{ defs.timeMode }" +
         "&background=#{ defs.drawBackground }" +
         "&i=#{ defs.time }&language=#{ defs.language }"
- 
+
+  console.log "url: ", url
+
   # get and save response
   http.getJSON url
     .then (res) ->
       console.log 'Loading JSON successful'
       res.marr = measurementsToArray res.measurements
-      console.log JSON.stringify(res)
+      delete res.measurements
+      # console.log JSON.stringify(res)
       res
     , (err) ->
       console.log "Error loadind JSON: #{ err }"
       null
-
-# { 
+# {
 #   "parameter":"PM10",
 #   "measurements":
 #     {"20161220 09": {"Centar":"254.10","GaziBaba":"","Karpos":"250.96","Lisice":"333.63","Rektorat":"273.41","Mrsevci":"","Miladinovci":"146.09"},

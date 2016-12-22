@@ -1,3 +1,15 @@
 <Page loaded='pageLoaded'>
-  <Label text='This is our JSON view' />
+  <ScrollView>
+    <StackLayout>
+      <Label text="{{ 'Parameter: ' + parameter }}" />
+      <Label text="{{ 'Stations: ' + stations }}" />
+      <Repeater items='{{ measurements }}'>
+        <Repeater.itemTemplate>
+          <GridLayout columns='100'>
+            <Label text="{{ time }}" class='datetime'/>
+          </GridLayout>
+        </Repeater.itemTemplate>
+      </Repeater>
+    </StackLayout>
+  </ScrollView>
 </Page>

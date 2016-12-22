@@ -1,19 +1,33 @@
-var MAKE_GRAPH_PATH;
+var Observable, createViewModel, utils;
 
-MAKE_GRAPH_PATH = "http://airquality.moepp.gov.mk/graphs/site/pages/MakeGraph.php";
+Observable = require("data/observable").Observable;
 
-exports.pageLoaded = function() {
-  var http, url;
-  console.log("Here we'll load JSON data");
-  http = require('http');
-  url = MAKE_GRAPH_PATH + "?graph=StationLineGraph&station=SkopjeRegion" + ("&parameter=PM10&endDate=" + ((new Date()).toISOString().slice(0, 10))) + "&timeMode=Day" + "&background=false" + ("&i=" + (Date.now()) + "&language=mk");
-  http.getJSON(url).then(function(res) {
-    console.log('Loading JSON successful');
+utils = require('../../common/utils');
+
+createViewModel = function() {
+  var viewModel;
+  viewModel = new Observable();
+  viewModel.measurements = [];
+  viewModel.getMeasurements = function(res) {
+    console.log('Got measurements');
+    this.set('measurements', res.marr);
+    this.set('parameter', res.parameter);
+    return this.set('stations', res.stations);
+  };
+  utils.getMeasurements({
+    station: 'SkopjeRegion'
+  }).then(function(res) {
+    console.log('Finally getting measurements');
     console.log(JSON.stringify(res));
-    return null;
-  }, function(err) {
-    console.log("Error loadind JSON: " + err);
-    return null;
+    viewModel.getMeasurements(res);
+    return console.log('Here are the measurements: ', JSON.stringify(res));
   });
-  return null;
+  return viewModel;
+};
+
+exports.pageLoaded = function(args) {
+  var page;
+  page = args.object;
+  console.log("Here we'll load JSON data");
+  return page.bindingContext = createViewModel();
 };
