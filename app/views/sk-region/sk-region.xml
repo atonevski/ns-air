@@ -1,15 +1,51 @@
-<Page loaded='pageLoaded'>
-  <ScrollView>
-    <StackLayout>
-      <Label text="{{ 'Parameter: ' + parameter }}" />
-      <Label text="{{ 'Stations: ' + stations }}" />
-      <Repeater items='{{ measurements }}'>
-        <Repeater.itemTemplate>
-          <GridLayout columns='100'>
-            <Label text="{{ time }}" class='datetime'/>
-          </GridLayout>
-        </Repeater.itemTemplate>
-      </Repeater>
-    </StackLayout>
-  </ScrollView>
+<Page loaded='pageLoaded' id='PageID'>
+  <Page.actionBar><ActionBar title="{{ station }}" />
+  </Page.actionBar>
+  <StackLayout>
+    <ActivityIndicator busy='{{ isLoaded }}'
+        visibility="{{ !isLoaded ? 'visible' : 'collapsed' }}" />
+
+    <Label text="{{ 'Параметар: ' + parameter }}"
+       visibility="{{ isLoaded ? 'visible' : 'collapsed' }}"/>
+    <WrapLayout visibility="{{ isLoaded ? 'visible' : 'collapsed' }}">
+      <Label text="Станици: " />
+      <Label text="{{ stationsMK }}" style="font-size: 10px"/>
+    </WrapLayout>
+
+    <!-- The header -->
+    <Repeater items='{{ header }}'>
+      <Repeater.itemsLayout>
+        <GridLayout columns="auto" rows='auto'
+                    id='header-id' class='header'/>
+      </Repeater.itemsLayout>
+      <Repeater.itemTemplate>
+        <Label text="{{ title }}" col="{{ index }}" row='0'
+               cssClass="{{ index > 0 ? 'header align-right' : 'header' }}" />
+      </Repeater.itemTemplate>
+    </Repeater>
+
+    <Repeater items='{{ measurements }}'>
+      <Repeater.itemTemplate>
+        <GridLayout columns="70, *" rows='auto' verticalAlignment='center'
+                    class='row'>
+          <Label text="{{ time }}" class='datetime'
+                verticalAlignment='center'
+                col='0' row='0'/>
+          <StackLayout col='1' row='0'>
+            <Repeater items='{{ for }}'>
+              <Repeater.itemsLayout>
+                <GridLayout columns="" rows='auto'
+                    class='gl-row' />
+              </Repeater.itemsLayout>
+              <Repeater.itemTemplate>
+                <Label text="{{ value }}" col="{{ index }}" row='0'
+                      cssClass='{{ levelClass }}' />
+              </Repeater.itemTemplate>
+            </Repeater>
+          </StackLayout>
+        </GridLayout>
+      </Repeater.itemTemplate>
+    </Repeater>
+
+  </StackLayout>
 </Page>

@@ -5,5 +5,5 @@ require("./bundle-config");
 application = require("application");
 
 application.start({
-  moduleName: "main-page"
+  moduleName: "views/main/main-page"
 });

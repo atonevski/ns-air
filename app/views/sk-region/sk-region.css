@@ -1,8 +1,44 @@
-.good { color: green; }
-.moderate { color: limegreen; }
-.sensitive { color: yellow; }
-.unhealthy { color: orange; }
-.very-unhealthy { color: red; }
-.hazardous { color: crimson; }
+Page {
+  background-color: #414141;
+  color: lightgray;
+}
 
-.datetime { font-size: 10px; }
+.header {
+  font-family: OpenSans-CondBold;
+  font-size: 10px;
+  text-decoration: underline;
+  border-width: 0.5px;
+  border-color: black;
+  padding-top: 3px;
+  padding-bottom: 3px;
+  margin-left: 2px;
+  margin-right: 2px;
+}
+.align-right { text-align: right; }
+
+.good { color: #006f38; }
+.moderate { color: #4a9300; }
+.sensitive { color: #939300; }
+.unhealthy { color: #E53935; }
+.very-unhealthy { color: #D81B60; }
+.hazardous { color: #8E24AA; }
+
+.value {
+  font-family: DroidSansMono;
+  font-size: 10px;
+  text-align: right;
+ }
+
+.datetime {
+  font-size: 9px;
+ }
+
+.gl-row {
+  background-color: #c0c0c0;
+  color: black;
+}
+.row {
+  margin-left: 4px;
+  margin-right: 4px;
+  margin-top: 2px;
+}

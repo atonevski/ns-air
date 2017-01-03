@@ -1,0 +1,50 @@
+<!--
+The markup in NativeScript apps contains a series of user interface components,
+each of which NativeScript renders with a platform-specific iOS or Android
+native control. You can find a full list of user interface components you can
+use in your app at https://docs.nativescript.org/ui/components.
+-->
+<Page xmlns="http://schemas.nativescript.org/tns.xsd" navigatingTo="onNavigatingTo">
+    <!--
+    The StackLayout stacks UI components on the screen—either vertically or
+    horizontally. In this case, the StackLayout does vertical stacking; you can
+    change the stacking to horizontal by applying a orientation="horizontal"
+    attribute to the <StackLayout> element. You can learn more about
+    NativeScript layouts at  https://docs.nativescript.org/ui/layout-containers.
+
+    These components make use of several CSS class names that are part of the
+    NativeScript core theme, such as p-20, btn, h2, and text-center. You can
+    view a full list of the class names available for styling your app at
+    https://docs.nativescript.org/ui/theme.
+    -->
+    <StackLayout class="p-20">
+      <Label tap='{{ toggleCollapseDate }}'
+        text="{{ collapseDate ? 'Одбери датум ▶' : 'Затвори датум ▼'}}"
+        class="collapse-label" />
+      <DatePicker year="{{ date.year }}" month="{{ date.month }}"
+                  day='{{ date.day }}'
+                  maxDate='{{ date.maxDate }}'
+                  minDate='{{ date.minDate }}'
+                  horizontalAlignment='center'
+                  visibility="{{ !collapseDate ? 'visible' : 'collapsed' }}" />
+      <Label tap='{{ toggleCollapseParameters }}'
+        text="{{ collapseParameters ? 'Отвори параметри ▶' : 'Затвори параметри ▼'}}"
+        class='collapse-label'  />
+      <GridLayout columns='2*, *' rows='auto'
+                  visibility="{{ !collapseParameters ? 'visible' : 'collapsed' }}">
+        <ListPicker items='{{ stations.items }}'
+                    selectedIndex='{{ stations.selectedIndex }}'
+                    class='picker'
+                    horizontalAlignment='center'
+                    verticalAlignment='center'
+                    selectedIndexChanged='{{ onStationsChange }}'
+                    col='0' row='0' />
+        <ListPicker items='{{ parameters.items }}'
+                    selectedIndex='{{ parameters.selectedIndex }}'
+                    horizontalAlignment='center'
+                    col='1' row='0' />
+      </GridLayout>
+      <Button text="Мерења" tap="{{ onTap }}" class='btn-purple'/>
+      <Button text="Параметри" tap="" class='btn-primary'/>
+    </StackLayout>
+</Page>

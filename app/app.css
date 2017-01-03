@@ -18,3 +18,16 @@ of writing your own CSS rules. For a full list of class names in the theme
 refer to http://docs.nativescript.org/ui/theme.
 */
 @import 'nativescript-theme-core/css/core.light.css';
+* {
+  font-family: OpenSans-Regular;
+  background-color: #dbdbdd;
+  color: #222;
+}
+.btn-purple {
+  background-color: rgb(162, 126, 175);
+  color: #fff;
+}
+ActionBar {
+  background-color: #303030;
+  color: white;
+}
