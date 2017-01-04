@@ -25,9 +25,6 @@ createViewModel = function(page) {
     this.set('isLoaded', true);
     this.set('stationsMK', this.buildStationsMK());
     this.set('header', this.buildHeader());
-    this.set('stars', (this.stations.map(function(e) {
-      return '*';
-    })).join(', '));
     hel = page.getViewById('header-id');
     hel.removeColumns();
     hel.addColumn(new layout.ItemSpec(70, layout.GridUnitType.pixel));

@@ -9,7 +9,7 @@ createViewModel = (page) ->
   viewModel = new Observable()
   viewModel.isLoaded = no
   viewModel.measurements = []
-  # viewModel.stars = '70, *, *, *, *, *, *, *'
+
   viewModel.getMeasurements = (res) ->
     console.log 'Got measurements'
     @set 'measurements', res.measurements
@@ -19,7 +19,7 @@ createViewModel = (page) ->
     @set 'isLoaded', yes
     @set 'stationsMK', @buildStationsMK()
     @set 'header', @buildHeader()
-    @set 'stars', (@stations.map((e) -> '*')).join(', ')
+    # @set 'stars', (@stations.map((e) -> '*')).join(', ')
 
     # fix header column width
     hel = page.getViewById 'header-id'
@@ -33,6 +33,8 @@ createViewModel = (page) ->
       r.removeColumns()
       for s in @stations
         r.addColumn new layout.ItemSpec(1, layout.GridUnitType.star)
+    # finally set page is loaded
+    # @set 'isLoaded', yes
 
   viewModel.buildStationsMK = () ->
     h = @stations.map (s) -> constants.stations[s].name
